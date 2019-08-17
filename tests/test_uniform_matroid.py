@@ -1,11 +1,11 @@
-import unittest
 import numpy as np
+from unittest import TestCase
 from uniform_matroid import UniformMatroid
 from itertools import combinations
 from numpy import array_equal
 
 
-class TestUniformMatroid(unittest.TestCase):
+class TestUniformMatroid(TestCase):
     def setUp(self) -> None:
         self.size = 10
         self.universe = set(range(self.size))
