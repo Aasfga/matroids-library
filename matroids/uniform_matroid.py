@@ -1,23 +1,24 @@
-from typing import Set, Dict
-
+from typing import Set
 from matroids.matroid import Matroid
-from sympy import nextprime, Matrix
-import numpy as np
-from sympy.polys.domains import GF
+from sympy import nextprime, GF
+from bidict import bidict
+from numpy import array, ndarray
 
 
 class UniformMatroid(Matroid):
+
     @staticmethod
-    def create_mapping(universe: Set, field: GF) -> Dict:
-        mapping = zip(universe, range(1, len(universe) + 1))
-        mapping = map(lambda x: (x[0], x[1] * field.one), mapping)
-        return {u: field.one * x for u, x in mapping}
+    def _create_matrix(size: int, rank: int, field: GF) -> ndarray:
+        values = [i * field.one for i in range(1, 1 + size)]
+        matrix = [[value ** i for i in range(rank)] for value in values]
+        return array(matrix, dtype='object').transpose()
 
     def __init__(self, universe: Set, rank: int):
+        self.universe: frozenset = frozenset(universe)
         self._rank: int = rank
-        self.universe: Set = universe
-        self.field = GF(nextprime(len(universe)))
-        self.mapping: Dict = self.create_mapping(universe, self.field)
+        self.field: GF = GF(nextprime(self.size))
+        self.mapping: bidict = bidict({value: i for i, value in enumerate(universe)})
+        self._matrix: ndarray = UniformMatroid._create_matrix(self.size, rank, self.field)
 
     def is_independent(self, s: Set) -> bool:
         if not s.issubset(self.universe):
@@ -30,6 +31,8 @@ class UniformMatroid(Matroid):
 
     @property
     def matrix(self):
-        elems = self.mapping.values()
-        matrix = [[elem ** i for i in range(self.rank)] for elem in elems]
-        return np.array(matrix, dtype='object')
+        return self._matrix.copy()
+
+    @property
+    def size(self):
+        return len(self.universe)
