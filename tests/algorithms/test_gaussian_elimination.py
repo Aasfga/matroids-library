@@ -16,6 +16,16 @@ class TestGaussianElimination(TestCase):
         assert_array_equal(result, correct_result, "Matrix error")
         self.assertEqual(swaps, correct_swaps, "Swap error")
 
+    def test_copy(self):
+        field = GF(5)
+        matrix = array([
+            [1, 2],
+            [2, 3]
+        ])
+        matrix_copy = matrix.copy()
+        gaussian_elimination(matrix, field)
+        assert_array_equal(matrix, matrix_copy, "Matrix hasn't been copied")
+
     def test_2x2(self):
         field = GF(7)
         matrix = array([
