@@ -1,2 +1,3 @@
 from .gaussian_elimination import gaussian_elimination
 from .determinant import determinant
+from .representative_family import representative_family
