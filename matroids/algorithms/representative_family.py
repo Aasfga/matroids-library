@@ -3,12 +3,10 @@ from numpy import array, ndarray
 from functools import reduce
 from typing import Set, List
 from itertools import combinations
-
 from sympy import GF
-
 from uniform_matroid import UniformMatroid
-from .determinant import determinant
-from .gaussian_elimination import gaussian_elimination
+from . import determinant
+from . import gaussian_elimination
 
 
 def _size_check(family: List[Set], size: int):

@@ -1,7 +1,7 @@
 from functools import reduce
 from numpy import ndarray
 from sympy import GF
-from .gaussian_elimination import gaussian_elimination
+from . import gaussian_elimination
 
 
 def determinant(matrix: ndarray, field: GF):
