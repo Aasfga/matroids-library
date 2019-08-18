@@ -30,9 +30,9 @@ class UniformMatroid(Matroid):
         return self._rank
 
     @property
-    def matrix(self):
+    def matrix(self) -> ndarray:
         return self._matrix.copy()
 
     @property
-    def size(self):
+    def size(self) -> int:
         return len(self.universe)

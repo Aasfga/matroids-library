@@ -1,4 +1,3 @@
-import numpy as np
 from numpy import array, ndarray
 from functools import reduce
 from typing import Set, List
@@ -9,11 +8,11 @@ from . import determinant
 from . import gaussian_elimination
 
 
-def _size_check(family: List[Set], size: int):
+def _size_check(family: List[Set], size: int) -> bool:
     return all(len(x) == size for x in family)
 
 
-def _create_vectors(indexes: List[List[int]], p, q, matroid):
+def _create_vectors(indexes: List[List[int]], p, q, matroid) -> ndarray:
     vectors = []
     matrix = matroid.matrix
     for s in indexes:
@@ -23,7 +22,7 @@ def _create_vectors(indexes: List[List[int]], p, q, matroid):
     return array(vectors).transpose()
 
 
-def _representation_indexes(vectors: ndarray, field: GF):
+def _representation_indexes(vectors: ndarray, field: GF) -> List[int]:
     y, x = 0, 0
     height, width = vectors.shape
     indexes = []
@@ -38,7 +37,7 @@ def _representation_indexes(vectors: ndarray, field: GF):
     return indexes
 
 
-def representative_family(family: List[Set], p, q) -> List[Set]:
+def representative_family(family: List[Set], p: int, q: int) -> List[Set]:
     if not _size_check(family, p):
         raise ValueError(f"Not all sets in family have size {p}")
     if len(family) == 0:

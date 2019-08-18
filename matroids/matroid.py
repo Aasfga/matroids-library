@@ -1,4 +1,5 @@
 from typing import Set
+from numpy import ndarray
 
 
 class Matroid:
@@ -10,7 +11,5 @@ class Matroid:
         raise NotImplementedError
 
     @property
-    def matrix(self):
+    def matrix(self) -> ndarray:
         raise NotImplementedError
-
-
