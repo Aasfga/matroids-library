@@ -3,7 +3,7 @@ from functools import reduce
 from typing import Set, List
 from itertools import combinations
 from sympy import GF
-from uniform_matroid import UniformMatroid
+from matroids import UniformMatroid
 from . import determinant
 from . import gaussian_elimination
 
